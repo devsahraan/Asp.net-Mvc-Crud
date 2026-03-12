@@ -1,0 +1,71 @@
+﻿@model IEnumerable<crud_project.Models.employee>
+@*is is binding model to view ienumerable is used because data is coming in list and it is storing in collection of list*@
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+@* we are using raw because in tempdata there is javascript code *@
+
+@if (TempData["CreateMessage"] != null)
+{
+
+    <div class="alert alert-success">
+        @TempData["CreateMessage"]
+    </div>
+}
+
+@if (TempData["UpdateMessage"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["UpdateMessage"]
+    </div>
+}
+
+@if (TempData["DeleteMessage"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["DeleteMessage"]
+    </div>
+}
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.designation)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.image_path)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.designation)
+            </td>
+            <td>
+                <img src="@Url.Content(item.image_path)" height="80" width="80" />
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.id }) |
+                @Html.ActionLink("Details", "Details", new { id = item.id }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.id })
+            </td>
+        </tr>
+    }
+
+</table>
